@@ -9,6 +9,7 @@ body {
     padding: 20px;
     overflow-x: hidden;
     position: relative;
+    min-height: 100vh;
 }
 
 #bg-canvas {
@@ -36,26 +37,41 @@ body {
 
 .card {
     width: calc(33.33% - 14px);
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     transition: transform 0.3s, box-shadow 0.3s;
     backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-image {
-    width: 100%;
-    height: 200px;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
     object-fit: cover;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover .card-image {
+    transform: scale(1.05);
 }
 
 .card-content {
@@ -69,7 +85,8 @@ body {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 15px;
-    color: #333;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .card-buttons {
@@ -90,26 +107,49 @@ body {
     display: inline-block;
     border: none;
     font-weight: 600;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: all 0.3s;
 }
 
 .btn-availability {
-    background-color: rgba(76, 175, 80, 0.9);
-    color: white;
+    background: linear-gradient(45deg, #4CAF50, #2E7D32);
 }
 
-.btn-availability:hover {
-    background-color: rgba(62, 142, 65, 0.9);
-    transform: translateY(-2px);
+.btn-availability::before {
+    background: linear-gradient(45deg, #2E7D32, #4CAF50);
+    opacity: 0;
 }
 
 .btn-match {
-    background-color: rgba(33, 150, 243, 0.9);
-    color: white;
+    background: linear-gradient(45deg, #2196F3, #0D47A1);
 }
 
-.btn-match:hover {
-    background-color: rgba(11, 125, 218, 0.9);
+.btn-match::before {
+    background: linear-gradient(45deg, #0D47A1, #2196F3);
+    opacity: 0;
+}
+
+.btn-link:hover::before {
+    opacity: 1;
+}
+
+.btn-link:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 900px) {
